@@ -3,19 +3,24 @@ import os
 import waitress as waitress
 from flask import Flask, render_template, url_for
 
+from blueprints import api as bp_api
+from blueprints import weather_app as bp_weather_app
+
 app = Flask(__name__)
+app.register_blueprint(bp_api.api)
+app.register_blueprint(bp_weather_app.weather_app)
 
-@app.route('/')
+
+@app.route("/")
 def index():
-   links = [
-      {"name":"Index", "link":url_for("index")},
-      {"name": "Index", "link": url_for("index")},
-      {"name": "Index", "link": url_for("index")}
-   ]
+    links = [
+        {"name": "API", "link": url_for("api.index")},
+        {"name": "Weather App", "link": url_for("weather_app.home")},
+    ]
 
-   return render_template("index.html", links=links)
+    return render_template("index.html", links=links)
 
 
-if __name__ == '__main__':
-   port = int(os.environ.get("PORT", 8080))
-   waitress.serve(app, host="0.0.0.0", port=port)
+if __name__ == "__main__":
+    port = int(os.environ.get("PORT", 8080))
+    waitress.serve(app, host="0.0.0.0", port=port)
