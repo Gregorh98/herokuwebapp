@@ -1,20 +1,6 @@
 import datetime
 
-from database import common
-
-db_name = "d296mehvjdhrbl"
-
-
-def get_from_db(query, args):
-    return common.get_from_db(db_name, query, args)
-
-
-def get_one_from_db(query, args):
-    return common.get_one_from_db(db_name, query, args)
-
-
-def send_to_db(query, args):
-    return common.send_to_db(db_name, query, args)
+from database.common import get_one_from_db, send_to_db
 
 
 def add_weather_entry(weather, wind, temperature):
