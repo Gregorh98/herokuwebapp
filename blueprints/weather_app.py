@@ -2,12 +2,15 @@ from flask import Blueprint, url_for, redirect, flash
 from flask import render_template, request
 
 import database.weather_app as db
+from utilities.login_required import weather_app_required, login_required
 
 weather_app = Blueprint("weather_app", __name__)
 proj_name = "weather_app"
 
 
 @weather_app.route("/weather_app", methods=["GET", "POST"])
+@weather_app_required
+@login_required
 def home():
     if request.method == "POST":
         weather = request.form.get("weather")
