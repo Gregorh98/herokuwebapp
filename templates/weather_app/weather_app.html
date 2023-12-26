@@ -27,7 +27,7 @@
             border: 4px solid transparent;
             border-radius: 10px; /* Rounded corners */
             padding: 10px; /* Space around the image */
-            transition: border-color 0.3s ease-in-out;
+            transition: border-color 0.1s ease-in-out;
         }
 
         input[type="radio"]:checked + img {
@@ -41,7 +41,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="ploop()">
 <div class="container text-center">
     <form method="POST">
         <div class="grid">
@@ -87,8 +87,8 @@
                         <div class="card-body">
                             <h3>Wind</h3>
                             <p id="windDesc">Moderate Wind</p>
-                            <input type="range" class="form-range" min="0" max="2" id="wind" name="wind" value=1
-                                   onchange="updateWindText(this.value)" oninput="updateWindText(this.value)">
+                            <input type="range" class="form-range" min="0" max="4" id="wind" name="wind" value="2" oninput="updateWindText()">
+
                         </div>
                     </div>
                 </div>
@@ -105,26 +105,34 @@
         <button class="btn btn-primary" type="submit">Submit</button>
     </form>
 </div>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
-        crossorigin="anonymous"></script>
 <script>
     function updateWindText() {
-        var windRating = document.getElementById("wind");
-
+        var windRating = document.getElementById("wind").value;
+        console.log(windRating);
+        console.log("TEST")
         switch (windRating) {
             case "0":
-                document.getElementById("windDesc").innerText = "Calm winds";
+                document.getElementById("windDesc").innerText = "No wind";
                 break;
             case "1":
-                document.getElementById("windDesc").innerText = "Moderate winds";
+                document.getElementById("windDesc").innerText = "Calm winds";
                 break;
             case "2":
+                document.getElementById("windDesc").innerText = "Moderate winds";
+                break;
+            case "3":
                 document.getElementById("windDesc").innerText = "Fast winds";
                 break;
-
+            case "4":
+                document.getElementById("windDesc").innerText = "Extreme winds";
+                break;
+            default:
+                document.getElementById("windDesc").innerText = "Unknown winds";
         }
     }
 </script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm"
+        crossorigin="anonymous"></script>
 </body>
 </html>
