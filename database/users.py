@@ -26,7 +26,7 @@ def login(email, password):
     )
 
     if password_hashing.check_password(password, encrypted_password):
-        session["id"] = id
+        session["user_id"] = id
         session["first_name"] = first_name
         session["last_name"] = last_name
         session["email"] = email

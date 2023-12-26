@@ -6,7 +6,7 @@ from flask import session, redirect, url_for
 def login_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if "id" in session:
+        if "user_id" in session:
             # User is logged in, proceed with the original function
             return func(*args, **kwargs)
         else:
