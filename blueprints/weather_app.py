@@ -32,3 +32,10 @@ def home():
             ).json()["current"]["temperature_2m"]
         ),
     )
+
+
+@weather_app.route("/weather_app/history", methods=["GET", "POST"])
+@weather_app_required
+@login_required
+def history():
+    return render_template(f"{proj_name}/history.html")
