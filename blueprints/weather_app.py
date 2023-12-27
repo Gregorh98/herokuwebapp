@@ -18,10 +18,17 @@ def home():
         wind = request.form.get("wind")
         temperature = request.form.get("temperature")
         try:
-            db.add_weather_entry(weather, wind, temperature)
-            flash("Successfully added weather reading")
+            result = db.add_weather_entry(weather, wind, temperature)
+            flash((f"Successfully {result}", "success"))
         except Exception as E:
-            flash(f"Unsuccessful. Error: {E}")
+            flash((f"Unsuccessful. Error: {E}", "danger"))
         return redirect(url_for(f"{proj_name}.home"))
 
-    return render_template(f"{proj_name}/weather_app.html", current_temp = int(requests.get("https://api.open-meteo.com/v1/forecast?latitude=55.85&longitude=-3.16&current=temperature_2m").json()["current"]["temperature_2m"]))
+    return render_template(
+        f"{proj_name}/weather_app.html",
+        current_temp=int(
+            requests.get(
+                "https://api.open-meteo.com/v1/forecast?latitude=55.85&longitude=-3.16&current=temperature_2m"
+            ).json()["current"]["temperature_2m"]
+        ),
+    )

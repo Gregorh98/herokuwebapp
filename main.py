@@ -41,6 +41,7 @@ def login():
         password = request.form.get("password")
 
         if db_users.login(email, password):
+            flash(("Logged in successfully!", "success"))
             return redirect(url_for("home"))
 
     return render_template("login.html")
@@ -56,10 +57,11 @@ def register():
 
         try:
             if db_users.add_user(email, password, first_name, last_name):
-                flash("User added successfully")
+                flash(("User added successfully", "success"))
                 return redirect(url_for("login"))
         except Exception as E:
-            return str(E)
+            flash((E, "danger"))
+            return redirect(url_for("register"))
 
     return render_template("register.html")
 
@@ -67,7 +69,7 @@ def register():
 @app.route("/logout")
 def logout():
     session.clear()
-
+    flash(("Logged out successfully", "success"))
     return redirect(url_for("login"))
 
 

@@ -42,6 +42,7 @@
     </style>
 </head>
 <body>
+{% include '_includes/flashes.html' %}
 <div class="container text-center">
     <form method="POST">
         <div class="grid">
@@ -87,7 +88,8 @@
                         <div class="card-body">
                             <h3>Wind</h3>
                             <p id="windDesc">Moderate Wind</p>
-                            <input type="range" class="form-range" min="0" max="4" id="wind" name="wind" value="2" oninput="updateWindText()">
+                            <input type="range" class="form-range" min="0" max="4" id="wind" name="wind" value="2"
+                                   oninput="updateWindText()">
 
                         </div>
                     </div>
@@ -96,7 +98,8 @@
                     <div class="card">
                         <div class="card-body">
                             <h3>Temperature (°C)</h3>
-                            <input type="number" class="form-control" id="temperature" name="temperature" value="{{current_temp}}">
+                            <input type="number" class="form-control" id="temperature" name="temperature"
+                                   value="{{ current_temp }}">
                         </div>
                     </div>
                 </div>
