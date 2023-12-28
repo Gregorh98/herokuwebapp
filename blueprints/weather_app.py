@@ -1,4 +1,3 @@
-import requests
 from flask import Blueprint, url_for, redirect, flash
 from flask import render_template, request
 
@@ -24,14 +23,7 @@ def home():
             flash((f"Unsuccessful. Error: {E}", "danger"))
         return redirect(url_for(f"{proj_name}.home"))
 
-    return render_template(
-        f"{proj_name}/weather_app.html",
-        current_temp=int(
-            requests.get(
-                "https://api.open-meteo.com/v1/forecast?latitude=55.85&longitude=-3.16&current=temperature_2m"
-            ).json()["current"]["temperature_2m"]
-        ),
-    )
+    return render_template(f"{proj_name}/weather_app.html")
 
 
 @weather_app.route("/weather_app/history", methods=["GET", "POST"])

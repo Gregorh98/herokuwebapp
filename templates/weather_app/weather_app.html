@@ -41,7 +41,7 @@
         }
     </style>
 </head>
-<body>
+<body onload="validate()">
 {% include "weather_app/_includes/navbar.html" %}
 {% include '_includes/flashes.html' %}
 <div class="container text-center">
@@ -57,27 +57,27 @@
                             <h3>Weather</h3>
                             <div class="container d-flex justify-content-center weather-options">
                                 <label>
-                                    <input type="radio" value="0" name="weather">
+                                    <input type="radio" value="0" name="weather" onchange="validate()">
                                     <img src="/static/weather_app/svg/sun.svg" width="75" height="75">
                                 </label>
                                 <label>
-                                    <input type="radio" value="1" name="weather">
+                                    <input type="radio" value="1" name="weather" onchange="validate()">
                                     <img src="/static/weather_app/svg/part-cloud.svg" width="75" height="75">
                                 </label>
                                 <label>
-                                    <input type="radio" value="2" name="weather">
+                                    <input type="radio" value="2" name="weather" onchange="validate()">
                                     <img src="/static/weather_app/svg/cloud.svg" width="75" height="75">
                                 </label>
                                 <label>
-                                    <input type="radio" value="3" name="weather">
+                                    <input type="radio" value="3" name="weather" onchange="validate()">
                                     <img src="/static/weather_app/svg/rain.svg" width="75" height="75">
                                 </label>
                                 <label>
-                                    <input type="radio" value="4" name="weather">
+                                    <input type="radio" value="4" name="weather" onchange="validate()">
                                     <img src="/static/weather_app/svg/snow.svg" width="75" height="75">
                                 </label>
                                 <label>
-                                    <input type="radio" value="5" name="weather">
+                                    <input type="radio" value="5" name="weather" onchange="validate()">
                                     <img src="/static/weather_app/svg/storm.svg" width="75" height="75">
                                 </label>
                             </div>
@@ -98,19 +98,22 @@
                 <div class="col-12 p-3">
                     <div class="card">
                         <div class="card-body">
-                            <h3>Temperature (°C)</h3>
-                            <input type="number" class="form-control" id="temperature" name="temperature"
-                                   value="{{ current_temp }}">
+                            <h3>Temperature</h3>
+                            <p id="temperatureDesc">Moderate (13-16°C)</p>
+                            <input type="range" class="form-range" min="0" max="4" id="temperature" name="temperature"
+                                   value="2"
+                                   oninput="updateTemperatureText()" onload="updateTemperatureText()">
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <button class="btn btn-primary" type="submit">Submit</button>
+        <button class="btn btn-primary" type="submit" id="submitButton">Submit</button>
     </form>
 </div>
 <script>
     function updateWindText() {
+        validate()
         var windRating = document.getElementById("wind").value;
         console.log(windRating);
         console.log("TEST")
@@ -132,6 +135,43 @@
                 break;
             default:
                 document.getElementById("windDesc").innerText = "Unknown winds";
+        }
+    }
+
+    function updateTemperatureText() {
+        validate()
+        var temperatureRating = document.getElementById("temperature").value;
+        switch (temperatureRating) {
+            case "0":
+                document.getElementById("temperatureDesc").innerText = "Freezing (< 5°C)";
+                break;
+            case "1":
+                document.getElementById("temperatureDesc").innerText = "Chilly (5-12°C)";
+                break;
+            case "2":
+                document.getElementById("temperatureDesc").innerText = "Moderate (13-16°C)";
+                break;
+            case "3":
+                document.getElementById("temperatureDesc").innerText = "Warm (17-21°C)";
+                break;
+            case "4":
+                document.getElementById("temperatureDesc").innerText = "Roasting (> 22°C)";
+                break;
+            default:
+                document.getElementById("temperatureDesc").innerText = "Unknown winds";
+        }
+    }
+
+    function validate() {
+        var selectedValue = document.querySelector('input[name="weather"]:checked');
+        var windValue = document.getElementById("wind").value;
+        var temperatureValue = document.getElementById("temperature").value;
+        var submitButton = document.getElementById("submitButton");
+
+        submitButton.disabled = true;
+
+        if (selectedValue && windValue !== undefined && temperatureValue !== undefined) {
+            submitButton.disabled = false;
         }
     }
 </script>
