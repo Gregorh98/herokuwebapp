@@ -19,22 +19,22 @@ def login_required(func):
 def weather_app_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if session["weather_app"]:
+        if session.get("weather_app"):
             return func(*args, **kwargs)
         else:
             print("You do not have access to this application")
             return redirect(url_for("home"))
 
     return wrapper
+
 
 def dinner_ideas_required(func):
     @wraps(func)
     def wrapper(*args, **kwargs):
-        if session["dinner_ideas"]:
+        if session.get("dinner_ideas"):
             return func(*args, **kwargs)
         else:
             print("You do not have access to this application")
             return redirect(url_for("home"))
 
     return wrapper
-
