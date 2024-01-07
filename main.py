@@ -7,6 +7,7 @@ from flask_session import Session
 import database.users as db_users
 from blueprints import api as bp_api
 from blueprints import weather_app as bp_weather_app
+from blueprints import dinner_ideas as bp_dinner_ideas
 from utilities.login_required import login_required
 
 app = Flask(__name__)
@@ -15,7 +16,7 @@ app.config["SECRET_KEY"] = "super secret key"
 sess = Session()
 app.register_blueprint(bp_api.api)
 app.register_blueprint(bp_weather_app.weather_app)
-
+app.register_blueprint(bp_dinner_ideas.dinner_ideas)
 
 @app.route("/")
 @login_required
@@ -31,6 +32,9 @@ def home():
     if session["weather_app"]:
         links.append({"name": "Weather App", "link": url_for("weather_app.home")})
 
+    if session["dinner_ideas"]:
+        links.append({"name": "Dinner Ideas", "link": url_for("dinner_ideas.home")})
+
     return render_template("index.html", links=links)
 
 
@@ -44,7 +48,7 @@ def login():
             flash(("Logged in successfully!", "success"))
             return redirect(url_for("home"))
 
-    return render_template("login.html")
+    return render_template("login.html", page_title="Login")
 
 
 @app.route("/register", methods=("POST", "GET"))
@@ -63,7 +67,7 @@ def register():
             flash((E, "danger"))
             return redirect(url_for("register"))
 
-    return render_template("register.html")
+    return render_template("register.html", page_title="Register")
 
 
 @app.route("/logout")

@@ -26,3 +26,15 @@ def weather_app_required(func):
             return redirect(url_for("home"))
 
     return wrapper
+
+def dinner_ideas_required(func):
+    @wraps(func)
+    def wrapper(*args, **kwargs):
+        if session["dinner_ideas"]:
+            return func(*args, **kwargs)
+        else:
+            print("You do not have access to this application")
+            return redirect(url_for("home"))
+
+    return wrapper
+

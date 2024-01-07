@@ -18,10 +18,10 @@ def add_user(email, password, first_name, last_name):
 
 
 def login(email, password):
-    sql = "select id, first_name, last_name, password, weather_app from public.users where email = %s"
+    sql = "select id, first_name, last_name, password, weather_app, dinner_ideas from public.users where email = %s"
     args = (email,)
 
-    id, first_name, last_name, encrypted_password, weather_app = get_one_from_db(
+    id, first_name, last_name, encrypted_password, weather_app, dinner_ideas = get_one_from_db(
         sql, args
     )
 
@@ -31,6 +31,7 @@ def login(email, password):
         session["last_name"] = last_name
         session["email"] = email
         session["weather_app"] = weather_app
+        session["dinner_ideas"] = dinner_ideas
 
         return True
     else:
