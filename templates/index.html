@@ -12,6 +12,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            background: #AAD9BB;
         }
     </style>
 </head>
@@ -22,7 +23,7 @@
     <h1>Gregor App</h1>
     <div class="container">
         {% for link in links %}
-            <a href="{{ link['link'] }}" class="btn btn-dark">{{ link["name"] }}</a>
+        <a href="{{ link['link'] }}" class="btn btn-dark">{{ link["name"] }}</a>
         {% endfor %}
     </div>
 </div>

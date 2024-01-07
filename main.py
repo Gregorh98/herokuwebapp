@@ -19,7 +19,6 @@ app.register_blueprint(bp_weather_app.weather_app)
 app.register_blueprint(bp_dinner_ideas.dinner_ideas)
 
 @app.route("/")
-@login_required
 def index():
     return redirect(url_for("home"))
 
