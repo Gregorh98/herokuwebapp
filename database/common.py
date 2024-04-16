@@ -6,10 +6,10 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Database connection parameters
-dbname = "d296mehvjdhrbl"
-user = "uobseijcswqdyl"
+dbname = os.getenv("DB_NAME")
+user = os.getenv("DB_USER")
 password = os.getenv("DB_PASS")
-host = "ec2-54-155-46-64.eu-west-1.compute.amazonaws.com"
+host = os.getenv("DB_HOST")
 port = "5432"
 
 
