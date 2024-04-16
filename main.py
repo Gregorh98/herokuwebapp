@@ -6,17 +6,18 @@ from flask_session import Session
 
 import database.users as db_users
 from blueprints import api as bp_api
-from blueprints import weather_app as bp_weather_app
 from blueprints import dinner_ideas as bp_dinner_ideas
+from blueprints import weather_app as bp_weather_app
 from utilities.login_required import login_required
 
 app = Flask(__name__)
-app.config["SESSION_TYPE"] = "memcached"
+# app.config["SESSION_TYPE"] = "memcached"
 app.config["SECRET_KEY"] = "super secret key"
 sess = Session()
 app.register_blueprint(bp_api.api)
 app.register_blueprint(bp_weather_app.weather_app)
 app.register_blueprint(bp_dinner_ideas.dinner_ideas)
+
 
 @app.route("/")
 def index():
