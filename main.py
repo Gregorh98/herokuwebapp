@@ -14,6 +14,7 @@ app = Flask(__name__)
 # app.config["SESSION_TYPE"] = "memcached"
 app.config["SECRET_KEY"] = "super secret key"
 sess = Session()
+sess.permanent = True
 app.register_blueprint(bp_api.api)
 app.register_blueprint(bp_weather_app.weather_app)
 app.register_blueprint(bp_dinner_ideas.dinner_ideas)
