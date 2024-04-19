@@ -47,6 +47,8 @@ def login():
         if db_users.login(email, password):
             flash(("Logged in successfully!", "success"))
             return redirect(url_for("home"))
+        else:
+            flash(("Invalid details - check username and password and try again!", "warning"))
 
     return render_template("login.html", page_title="Login")
 

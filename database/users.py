@@ -35,4 +35,5 @@ def login(email, password):
 
         return True
     else:
-        raise Exception("Cannot log in. Please check email and password.")
+        return False
+        # raise Exception("Cannot log in. Please check email and password.")
