@@ -1,4 +1,5 @@
 import os
+from urllib.parse import urlparse
 
 import psycopg2
 from dotenv import load_dotenv
@@ -6,16 +7,19 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # Database connection parameters
-dbname = os.getenv("DB_NAME")
-user = os.getenv("DB_USER")
-password = os.getenv("DB_PASS")
-host = os.getenv("DB_HOST")
-port = "5432"
+db_url = os.getenv("DB_URL")
+print(db_url)
 
 
 def get_conn():
+    result = urlparse(db_url)
+
     return psycopg2.connect(
-        dbname=dbname, user=user, password=password, host=host, port=port
+        dbname=result.path[1:],  # The path includes a leading '/', so we remove it
+        user=result.username,
+        password=result.password,
+        host=result.hostname,
+        port=result.port,
     )
 
 
