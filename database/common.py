@@ -8,7 +8,6 @@ load_dotenv()
 
 # Database connection parameters
 db_url = os.getenv("DB_URL")
-print(db_url)
 
 
 def get_conn():

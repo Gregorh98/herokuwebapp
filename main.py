@@ -7,6 +7,7 @@ from flask_session import Session
 import database.users as db_users
 from blueprints import api as bp_api
 from blueprints import dinner_ideas as bp_dinner_ideas
+from blueprints import inktrigue as bp_inktrigue
 from blueprints import weather_app as bp_weather_app
 from utilities.login_required import login_required
 
@@ -18,6 +19,7 @@ sess.permanent = True
 app.register_blueprint(bp_api.api)
 app.register_blueprint(bp_weather_app.weather_app)
 app.register_blueprint(bp_dinner_ideas.dinner_ideas)
+app.register_blueprint(bp_inktrigue.inktrigue)
 
 
 @app.route("/")
@@ -29,6 +31,7 @@ def index():
 @login_required
 def home():
     links = [{"name": "API", "link": url_for("api.index")}]
+    links.append({"name": "Inktrigue", "link": url_for("inktrigue.home")})
 
     if session["weather_app"]:
         links.append({"name": "Weather App", "link": url_for("weather_app.home")})
@@ -49,7 +52,12 @@ def login():
             flash(("Logged in successfully!", "success"))
             return redirect(url_for("home"))
         else:
-            flash(("Invalid details - check username and password and try again!", "warning"))
+            flash(
+                (
+                    "Invalid details - check username and password and try again!",
+                    "warning",
+                )
+            )
 
     return render_template("login.html", page_title="Login")
 
@@ -81,5 +89,6 @@ def logout():
 
 
 if __name__ == "__main__":
+    print("Starting...")
     port = int(os.environ.get("PORT", 8080))
     waitress.serve(app, host="0.0.0.0", port=port)
