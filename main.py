@@ -7,7 +7,7 @@ from flask_session import Session
 import database.users as db_users
 from blueprints import api as bp_api
 from blueprints import dinner_ideas as bp_dinner_ideas
-from blueprints import inktrigue as bp_inktrigue
+from blueprints import dress_correct as bp_dress_correct
 from blueprints import weather_app as bp_weather_app
 from utilities.login_required import login_required
 
@@ -19,7 +19,7 @@ sess.permanent = True
 app.register_blueprint(bp_api.api)
 app.register_blueprint(bp_weather_app.weather_app)
 app.register_blueprint(bp_dinner_ideas.dinner_ideas)
-app.register_blueprint(bp_inktrigue.inktrigue)
+app.register_blueprint(bp_dress_correct.dress_correct)
 
 
 @app.route("/")
@@ -31,7 +31,7 @@ def index():
 @login_required
 def home():
     links = [{"name": "API", "link": url_for("api.index")}]
-    links.append({"name": "Inktrigue", "link": url_for("inktrigue.home")})
+    links.append({"name": "Dress Correct", "link": url_for("dress_correct.home")})
 
     if session["weather_app"]:
         links.append({"name": "Weather App", "link": url_for("weather_app.home")})
